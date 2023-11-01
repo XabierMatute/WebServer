@@ -6,18 +6,39 @@
 /*   By: xmatute- <xmatute-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 10:32:09 by xmatute-          #+#    #+#             */
-/*   Updated: 2023/10/30 19:01:09 by xmatute-         ###   ########.fr       */
+/*   Updated: 2023/11/01 12:18:10 by xmatute-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Config.hpp"
+
+int initServerNum(const std::string &filePath) {
+    std::ifstream inputFile(filePath.c_str()); // Abre el archivo usando una cadena de caracteres C
+    if (!inputFile) {
+        std::cerr << "No se pudo abrir el archivo: " << filePath << std::endl;
+        return -1; // Indicar error
+    }
+
+    std::string line;
+    int count = 0;
+    const std::string targetPrefix = "    - server_name:";
+
+    while (std::getline(inputFile, line)) {
+        if (line.find(targetPrefix) == 0) {
+            count++;
+        }
+    }
+
+    inputFile.close();
+    return count;
+}
 
 Config::~Config()
 {
 	cout << " entrando a Config::~Config() " << endl;
 }
 
-Config::Config(const std::string &path) : ifstream(path), path(path), line(), ServerNum(0), lineNum(0)
+Config::Config(const std::string &path) : ifstream(path), path(path), line(), ServerNum(initServerNum(path)), lineNum(0)
 {
 	cout << " entrando a Config::Config(const std::string &path) path: " << '"' << path << '"' << endl;
 	init();
@@ -42,8 +63,11 @@ void	Config::init()
 {
 	if (!is_open())
 		throw std::runtime_error("No se pudo abrir el archivo: " + path);
-	
+
 	skipLine("server:");
+	int i = ServerNum;
+	while (i--)
+	{	
 	server_name.push_back(getToken(		"    - server_name: "));
 	root.push_back(getToken(			"      root: "));
 	ports.push_back(parsePorts(getToken("      listen: ").c_str()));
@@ -51,6 +75,7 @@ void	Config::init()
 	error_pages.push_back(parseErrorPages());
 
 	locations.push_back(parseLocations());
+	}
 }
 
 string	Config::getToken(const std::string &pre)
@@ -161,4 +186,9 @@ intVector		Config::getPorts(size_t index)
 intCharMap		Config::getErrorPages(size_t index)
 {
 	return(error_pages[index]);
+}
+
+locationVector	Config::getLocations(size_t index)
+{
+	return(locations[index]);
 }

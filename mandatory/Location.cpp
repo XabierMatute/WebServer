@@ -31,10 +31,22 @@ Location::Location(\
 				const std::string	&redirection, \
 				const std::string	&destination, \
 				const std::string	&cgi_destinaation \
-		) //esto hay que hacerlo
-		{
+) :
+path(path),
+root(root),
+index(index),
+allowed_methods(allowed_methods),
+GET(isAllowed("GET")),
+POST(isAllowed("POST")),
+DELETE(isAllowed("DELETE")),
+autoindex(autoindex.find("on") == 0),///hmmmm
+max_body_size(atol(max_body_size.c_str())),
+redirection(redirection),
+destination(destination),
+cgi_destinaation(cgi_destinaation)
+{
 
-		}
+}
 /* Location::Location(const Location& toCopy) */
 /* { */
 /* 	(void)toCopy; */
@@ -48,4 +60,9 @@ Location& Location::operator=(const Location& toAssign)
 {
 	(void)toAssign;
 	return *this;
+}
+
+bool	Location::isAllowed(const std::string	&method)
+{
+	return(allowed_methods.find(method) != std::string::npos);
 }

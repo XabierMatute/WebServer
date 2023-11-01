@@ -10,6 +10,7 @@ class Location
 		std::string path;
 		std::string	root;
 		std::string	index;
+		std::string	allowed_methods;
 		bool	GET;
 		bool	POST;
 		bool	DELETE;
@@ -20,6 +21,7 @@ class Location
 		std::string	cgi_destinaation;
 
 		Location();
+		bool	isAllowed(const std::string	&method);
 
 	public:
 		Location(\
@@ -50,6 +52,62 @@ class Location
 		~Location();
 
 		Location& operator=(const Location& toCopy);
+
+	 const std::string& getPath() const
+    {
+        return path;
+    }
+
+    const std::string& getRoot() const
+    {
+        return root;
+    }
+
+    const std::string& getIndex() const
+    {
+        return index;
+    }
+
+    bool isGET() const
+    {
+        return GET;
+    }
+
+    bool isPOST() const
+    {
+        return POST;
+    }
+
+    bool isDELETE() const
+    {
+        return DELETE;
+    }
+
+    bool isAutoindex() const
+    {
+        return autoindex;
+    }
+
+    size_t getMaxBodySize() const
+    {
+        return max_body_size;
+    }
+
+    const std::string& getRedirection() const
+    {
+        return redirection;
+    }
+
+    const std::string& getDestination() const
+    {
+        return destination;
+    }
+
+    const std::string& getCGIDestination() const
+    {
+        return cgi_destinaation;
+    }
+
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: xmatute- <xmatute-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 10:32:06 by xmatute-          #+#    #+#             */
-/*   Updated: 2023/10/30 16:51:06 by xmatute-         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:00:02 by xmatute-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ class Config : protected ifstream
 		string			getRoot(size_t index);
 		intVector		getPorts(size_t index);
 		intCharMap		getErrorPages(size_t index);
+		locationVector	getLocations(size_t index);
 
 
 };
