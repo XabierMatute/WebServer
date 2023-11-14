@@ -6,7 +6,7 @@
 /*   By: xmatute- <xmatute-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 10:19:27 by xmatute-          #+#    #+#             */
-/*   Updated: 2023/11/01 16:43:52 by xmatute-         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:09:01 by xmatute-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ using	std::string;
 const string defaultPath = "config/default.yml";
 
 #include "Config.hpp"
+#include "WebServer.hpp"
 
 // void testConfig() {
 //     Config config(defaultPath);
@@ -65,7 +66,7 @@ int run(const string &path)
 	{
 		Config	config(path);
 
-		// Webserver	werbserver(config);
+		WebServer	werbserver(config);
 		// werbserver.run();
 	}
 	catch(const std::exception& e)

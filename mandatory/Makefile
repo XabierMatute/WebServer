@@ -6,7 +6,7 @@
 #    By: xmatute- <xmatute-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/05/02 14:37:14 by xmatute-          #+#    #+#              #
-#    Updated: 2023/10/30 17:29:49 by xmatute-         ###   ########.fr        #
+#    Updated: 2023/11/03 17:05:42 by xmatute-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ HEADER :=
 
 # INTERFACES := 
 
-CLASSES := Config Location
+CLASSES := Config Location WebServer Server Port
 
 CLASSES_SRC := $(CLASSES:%=%.cpp)
 

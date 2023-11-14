@@ -6,7 +6,7 @@
 /*   By: xmatute- <xmatute-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 10:32:09 by xmatute-          #+#    #+#             */
-/*   Updated: 2023/11/01 12:18:10 by xmatute-         ###   ########.fr       */
+/*   Updated: 2023/11/05 18:27:49 by xmatute-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,12 @@ string		&Config::skipLine(const std::string &expected)
 	return (line);
 }
 
+string	Config::getToken(const std::string &pre)
+{
+	if (nextline().find(pre) != 0)
+		lineException("💮\"" + pre + "\" expected");
+	return(line.substr(strlen(pre.c_str())));
+}
 
 void	Config::init()
 {
@@ -67,7 +73,7 @@ void	Config::init()
 	skipLine("server:");
 	int i = ServerNum;
 	while (i--)
-	{	
+	{
 	server_name.push_back(getToken(		"    - server_name: "));
 	root.push_back(getToken(			"      root: "));
 	ports.push_back(parsePorts(getToken("      listen: ").c_str()));
@@ -76,13 +82,6 @@ void	Config::init()
 
 	locations.push_back(parseLocations());
 	}
-}
-
-string	Config::getToken(const std::string &pre)
-{
-	if (nextline().find(pre) != 0)
-		lineException("💮\"" + pre + "\" expected");
-	return(line.substr(strlen(pre.c_str())));
 }
 
 intVector	Config::parsePorts(const char *s)
@@ -164,31 +163,31 @@ void	Config::lineException(const std::string &problem)
 	throw (std::runtime_error(problem));
 }
 
-size_t Config::getServerNum()
+size_t Config::getServerNum() const
 {
 	return(ServerNum);
 }
 
-string			Config::getName(size_t index)
+string			Config::getName(size_t index) const
 {
 	return(server_name[index]);
 }
-string			Config::getRoot(size_t index)
+string			Config::getRoot(size_t index) const
 {
 	return(root[index]);
 }
 
-intVector		Config::getPorts(size_t index)
+intVector		Config::getPorts(size_t index) const
 {
 	return(ports[index]);
 }
 
-intCharMap		Config::getErrorPages(size_t index)
+intCharMap		Config::getErrorPages(size_t index) const
 {
 	return(error_pages[index]);
 }
 
-locationVector	Config::getLocations(size_t index)
+locationVector	Config::getLocations(size_t index) const
 {
 	return(locations[index]);
 }
